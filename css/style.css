@@ -1,0 +1,46 @@
+div {
+	margin: 5px;
+}
+
+body {
+    FONT-SIZE: 9pt;
+    COLOR: #003300;
+    FONT-FAMILY: verdana,geneva,arial cyr;
+}
+
+.infoPanel {
+    border: dotted 1px black;
+    padding: 3px;
+    height: 80px;
+}
+
+
+.infoPanel.user{
+    width: 45%;
+    float: left;
+}
+
+.infoPanel.ticket {
+    width: 45%;
+    float: right;
+}
+
+.form input[type=text] {
+	width: 220px;
+}
+
+.form input[type=password] {
+	width: 220px;
+}
+
+.form input[type=submit] {
+	width: 120px;
+}
+
+.form.login {
+	float: inherit;
+	border: 1px dotted black;
+	width: 250px;
+	height: 100px;
+	padding: 25px;
+}

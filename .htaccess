@@ -1,0 +1,12 @@
+AddDefaultCharset UTF-8
+
+RewriteEngine On
+#RewriteCond %{REQUEST_URI} !/$
+#RewriteCond %{REQUEST_URI} !\.
+#RewriteRule ^(.*) %{REQUEST_URI}/ [R=301,L]
+# Перенаправление на слэш
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]
+
