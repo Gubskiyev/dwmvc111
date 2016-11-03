@@ -13,8 +13,10 @@ class ModelForum extends Model {
                 $count[] = $c["COUNT(*)"];
             }
         }
-        var_dump($count);
-        return $this->select("SELECT * FROM `section`");
+        //$data = [];
+        $data['count'] = $count;
+        $data['section'] = $this->select("SELECT * FROM `section`");
+        return $data;
     }
 
     public function getThreadsBySection($section) {

@@ -4,7 +4,8 @@
         <th width="20%">Последняя тема</th>
         <th width="10%">Всего</th>
     </tr>
-    <?php foreach($data as $section): ;?>
+    <?=var_dump($data['count'])?>
+    <?php foreach($data['section'] as $section): ;?>
         <tr>
             <td>
                 <div>
@@ -20,7 +21,7 @@
                 Последние сообщения
             </td>
             <td align="center">
-				
+                <?=$data['count'][$section['id']]?>
             </td>
         </tr>
     <?php endforeach ;?>
