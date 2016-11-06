@@ -47,7 +47,7 @@ class ModelForum extends Model {
 
     }
 
-	//
+
 
     public function getUserData($login) {
         $sql = "SELECT `id`,`login` FROM `users` WHERE `login` = '$login'";
