@@ -4,7 +4,7 @@
         <th width="20%">Последняя тема</th>
         <th width="10%">Всего</th>
     </tr>
-    <?=var_dump($data['count'])?>
+
     <?php foreach($data['section'] as $section): ;?>
         <tr>
             <td>

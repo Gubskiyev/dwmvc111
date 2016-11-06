@@ -2,18 +2,17 @@
 class ModelForum extends Model {
 
     public function getAllForums() {
-        $sections = $this->select("SELECT COUNT(*) FROM `section`");
-        $sections = $sections[0]["COUNT(*)"];
+        $sections = count($this->select("SELECT * FROM `section`"));
 
         for($i = 1; $i <= $sections; $i++) {
             $sql = "SELECT COUNT(*) FROM `threads` WHERE `fid` = '$i'";
             $total[$i] = $this->select($sql);
 
-            foreach($total[$i] as $c) {
-                $count[] = $c["COUNT(*)"];
+            foreach($total[$i] as $v) {
+                $count[$i] = $v["COUNT(*)"];
             }
         }
-        //$data = [];
+
         $data['count'] = $count;
         $data['section'] = $this->select("SELECT * FROM `section`");
         return $data;
