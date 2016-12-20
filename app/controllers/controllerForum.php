@@ -8,7 +8,7 @@ class ControllerForum extends Controller {
     }
     public function actionView() {
 		$data = $this->model->getAllForums();
-		$this->view->render('Форум','viewForumIndex.php','template.php', $data);
+		$this->view->render('Форум','forum/index.php','template.php', $data);
     }
 
     public function actionSection() {
@@ -18,7 +18,7 @@ class ControllerForum extends Controller {
             $data = $this->model->getThreadsBySection($id);
             $navi = $this->model->getForumByID($id);
 
-            $this->view->render('Форум','viewForumSection.php','template.php', $data, $navi);
+            $this->view->render('Форум','forum/section.php','template.php', $data, $navi);
         }
     }
 
@@ -32,7 +32,7 @@ class ControllerForum extends Controller {
 			$data = $this->model->getThreadByID($fid,$tid);
 
 			if($fid === $data[0]['fid']) { //Если FID в адресной строке имеется в запросе с TID то выводим страницу
-				$this->view->render('Сообщение','viewForumMessageId.php','template.php',$data,$navi);
+				$this->view->render('Сообщение','forum/messageId.php','template.php',$data,$navi);
 			}else Router::page404();
         }else Router::page404();
     }
@@ -41,7 +41,7 @@ class ControllerForum extends Controller {
         if(!$this->isLogin()) header('Location: /user/login');
         $fid = trim(strip_tags(intval($_GET['fid'])));
         if(isset($fid)) {
-            $this->view->render('Новая тема','viewForumNewThread.php','template.php');
+            $this->view->render('Новая тема','forum/newThread.php','template.php');
         }
     }
     public function actionPostThread() {

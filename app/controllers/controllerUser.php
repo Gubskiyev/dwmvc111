@@ -10,7 +10,7 @@ class ControllerUser extends Controller {
         if(!$this->isLogin()) header('Location: /user/login'); //Проверка на логон
         $data = $this->model->getUserData($_COOKIE['login']);
         $data2 = $this->model->getSkill();
-        $this->view->render('Персонаж','viewUserIndex.php','template.php',$data,$data2);
+        $this->view->render('Персонаж','user/index.php','template.php',$data,$data2);
     }
 
     public function actionRegister() {
@@ -40,19 +40,19 @@ class ControllerUser extends Controller {
             if(count($err) == 0) {
                 $this->model->userAdd($login,$pass1);
                 echo "Пользователь создан!<br>";
-                $this->view->render('Регистрация','viewUserRegister.php','template.php');
+                $this->view->render('Регистрация','user/register.php','template.php');
             } else {
                 print "<b>При регистрации произошли следующие ошибки:</b><br>";
                 foreach($err AS $error){
                     print $error."<br>";
                 }
-                $this->view->render('Регистрация','viewUserRegister.php','template.php');
+                $this->view->render('Регистрация','user/register.php','template.php');
             }
 
         } else {
             $title = 'Регистрация';
 
-            $this->view->render($title,'viewUserRegister.php','template.php');
+            $this->view->render($title,'user/register.php','template.php');
         }
     }
 
@@ -72,21 +72,21 @@ class ControllerUser extends Controller {
                 header('Location: /user/');
             } else {
                 print "Вы ввели неправильный логин/пароль<br>";
-                $this->view->render('Авторизация','viewUserLogin.php','template.php');
+                $this->view->render('Авторизация','user/login.php','template.php');
             }
         } else {
             $title = 'Вход в игру';
             $data = '';
-            $this->view->render($title, 'viewUserLogin.php', 'template.php', $data);
+            $this->view->render($title, 'user/login.php', 'template.php', $data);
         }
     }
 
     public function actionInfo() {
         $id = trim(strip_tags(intval($_GET['id'])));
-        if($id == NULL && $id == '') header('Location: /user?id=1');
+        if($id == NULL || $id == '' || $id == '0') header('Location: info?id=1');
         if(intval($id)) {
             $data = $this->model->getUserDataByID($id);
-            $this->view->render('Информация','viewUserInfo.php','template.php',$data);
+            $this->view->render('Информация','user/info.php','template.php',$data);
         }
     }
 

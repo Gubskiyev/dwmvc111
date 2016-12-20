@@ -8,8 +8,8 @@
             <div align="center">
                 <nav>
                     <a href="/user/">Персонаж</a> |
-                    <a href="#">Почта</a> |
-                    <a href="#">Карта</a> |
+                    <a href="/mail/">Почта</a> |
+                    <a href="/map/">Карта</a> |
                     <a href="/forum/">Форум</a>
                 </nav>
             </div>

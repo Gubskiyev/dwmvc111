@@ -6,7 +6,7 @@
         <?php foreach($data as $user): ;?>
         <div class="body-left">
             <div id="login">
-                <a href="info/<?=$user['id']?>">
+                <a href="info?id=<?=$user['id']?>">
                     <?=$user['login']?>
                 </a>
             </div>
