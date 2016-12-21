@@ -1,10 +1,12 @@
 <?php
 class ControllerForum extends Controller {
+    public $close = false;
 
     public function __construct() {
 		if(!$this->isLogin()) header('Location: /user/login');
         $this->model = new ModelForum();
         $this->view = new View();
+        if($this->close == true) header("Location: 404");
     }
     public function actionView() {
 		$data = $this->model->getAllForums();
