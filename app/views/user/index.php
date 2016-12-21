@@ -30,7 +30,7 @@
                     Экономический: <?=$user['elvl']?> (<?=$user['eexp']?>)
                 </div>
                 <div id="plvl">
-                    Производственный: <?=$user['elvl']?> (<?=$user['eexp']?>)
+                    Производственный: <?=$user['plvl']?> (<?=$user['pexp']?>)
                 </div>
 
                 <hr>
@@ -71,7 +71,16 @@
     </div>
     <div id="right-menu">
         <div id="menu">
-
+            <ul>
+                <li><a href="/user/inventory">Инвентарь</a></li>
+                <li><a href="/shop">Магазин</a></li>
+                <li><a href="/mail">Почта</a></li>
+                <li><a href="/user/search">Найти персонажа</a></li>
+                <li><a href="/user/sendmoney">Перевод денег</a></li>
+                <li><a href="/log/money">Протокол переводов</a></li>
+                <li><a href="/log/battle">Протокол боев</a></li>
+                <li><a href="/user/setting">Настройки<a/></li>
+            </ul>
         </div>
     </div>
 </div>
