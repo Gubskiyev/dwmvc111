@@ -2,6 +2,7 @@
 class ControllerUser extends Controller {
 
     public function __construct() {
+        parent::__construct();
         $this->model = new ModelUser();
         $this->view = new View();
     }
@@ -63,10 +64,8 @@ class ControllerUser extends Controller {
             $pass = md5($pass);
 
             $data = $this->model->getUser($login);
-            //var_dump($data['pass']);die;
-            if ($data['pass'] === $pass) {
-                //$hash = md5($user->generateCode(10));
 
+            if ($data['pass'] === $pass) {
                 setcookie("login", $login, time() + 36000, "/");
                 setcookie("id", $data['id'], time() + 36000, "/");
                 header('Location: /user/');
@@ -76,8 +75,7 @@ class ControllerUser extends Controller {
             }
         } else {
             $title = 'Вход в игру';
-            $data = '';
-            $this->view->render($title, 'user/login.php', 'template.php', $data);
+            $this->view->render($title, 'user/login.php', 'template.php');
         }
     }
 
@@ -88,6 +86,47 @@ class ControllerUser extends Controller {
             $data = $this->model->getUserDataByID($id);
             $this->view->render('Информация','user/info.php','template.php',$data);
         }
+    }
+
+    public function actionSearch() {
+        if(isset($_GET['login'])) {
+            $login = trim(strip_tags($_GET['login']));
+            $data = $this->model->getUser($login);
+                if($data != NULL) header("Location: /user/info?id=".$data['id']);
+            else $this->view->render('Найти игрока', 'user/searchError.php', 'template.php');
+        }else $this->view->render('Найти игрока', 'user/search.php', 'template.php');
+    }
+
+    public function actionSendmoney() {
+        if(isset($_POST['sendmoney'])) {
+            $receiver = $_POST['receiver'];
+            $money = $_POST['money'];
+            $text = $_POST['text'];
+            $myMoney = $this->model->getUserData($_COOKIE['login']);
+            $myLogin = $_COOKIE['login'];
+
+            if($money <= 0) {
+                $data = 'Сумма не может быть меньше 1$';
+                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
+            }elseif($this->model->getUser($receiver) == NULL) {
+                $data = 'Игрок не найден';
+                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
+            }elseif(strlen($text) > 100) {
+                $data = 'Комментарий слишком длинный';
+                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);
+                exit;
+            }elseif($myMoney < $money){
+                $data = 'У меня нет столько денег';
+                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);
+                exit;
+            }else{
+                $this->model->userMinusMoney($myLogin,$money);
+                $this->model->userSendMoney($receiver,$money,$text);
+                $data = 'Сумма в размере '.$money.' отправлена персонажу '.$receiver.'.';
+                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
+            }
+        }
+        $this->view->render('Перевод денег', 'user/sendmoney.php', 'template.php');
     }
 
     public function actionLogout() {

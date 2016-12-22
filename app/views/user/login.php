@@ -1,5 +1,5 @@
 <h2 align="center">Вход</h2>
-<form role="form" action="/user/login" method="POST" name="auth">
+<form role="form" action="/user/login/" method="post" name="auth">
     <table align="center">
         <tr>
             <td>
@@ -15,7 +15,7 @@
             <td>
                 <br>
                 <input class="btn btn-success" type="submit" name="auth" value="Авторизация">
-                <a class="btn btn-default" href="register">Регистрация</a>
+                <a class="btn btn-default" href="/user/register/">Регистрация</a>
             </td>
         </tr>
     </table>

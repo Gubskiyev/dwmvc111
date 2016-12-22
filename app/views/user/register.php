@@ -26,7 +26,7 @@
             <td>
                 <br>
                 <input class="btn btn-success" type="submit" name="reg" value="Регистрация">
-                <a class="btn btn-default" href="login">Авторизация</a>
+                <a class="btn btn-default" href="/user/login">Авторизация</a>
             </td>
         </tr>
     </table>

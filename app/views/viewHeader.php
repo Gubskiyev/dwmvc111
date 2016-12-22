@@ -3,7 +3,8 @@
         <div id="header">
             <div>
                 <a href="info?id=<?=$_COOKIE['id']?>"><?=$_COOKIE['login']?></a>
-                <a href="/user/logout"><small>[Выйти]</small></a>
+                <a href="/user/logout"><small>[Выйти]</small></a><br>
+                <small><?=date('H:i')?> YKT</small>
             </div>
             <div align="center">
                 <nav>

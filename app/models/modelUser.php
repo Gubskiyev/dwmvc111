@@ -26,5 +26,14 @@ class ModelUser extends Model {
         return $this->insert($sql);
     }
 
+    public function userSendMoney($login,$money,$text) {
+        $sql = "UPDATE `users` SET `money` = '$money' WHERE `login` = '$login'";
+        return $this->update($sql);
+    }
+
+    public function userMinusMoney($login,$money) {
+        $sql = "UPDATE `users` SET `money` = `money` - '$money' WHERE `login` = '$login'";
+        return $this->update($sql);
+    }
 
 }
