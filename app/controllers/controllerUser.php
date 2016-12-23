@@ -115,13 +115,12 @@ class ControllerUser extends Controller {
                 $data = 'Комментарий слишком длинный';
                 $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);
                 exit;
-            }elseif($myMoney < $money){
+            }elseif($myMoney[0]['money'] < $money){
                 $data = 'У меня нет столько денег';
                 $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);
                 exit;
             }else{
-                $this->model->userMinusMoney($myLogin,$money);
-                $this->model->userSendMoney($receiver,$money,$text);
+                $this->model->userSendMoney($myLogin,$receiver,$money);
                 $data = 'Сумма в размере '.$money.' отправлена персонажу '.$receiver.'.';
                 $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
             }
