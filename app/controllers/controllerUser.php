@@ -102,30 +102,34 @@ class ControllerUser extends Controller {
             $receiver = $_POST['receiver'];
             $money = $_POST['money'];
             $text = $_POST['text'];
-            $myMoney = $this->model->getUserData($_COOKIE['login']);
-            $myLogin = $_COOKIE['login'];
+            $moneySender = $this->model->getUserData($_COOKIE['login']);
+            $sender = $_COOKIE['login'];
 
             if($money <= 0) {
                 $data = 'Сумма не может быть меньше 1$';
-                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
+                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                exit;
             }elseif($this->model->getUser($receiver) == NULL) {
                 $data = 'Игрок не найден';
-                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
+                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                exit;
             }elseif(strlen($text) > 100) {
                 $data = 'Комментарий слишком длинный';
-                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);
+                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
                 exit;
-            }elseif($myMoney[0]['money'] < $money){
+            }elseif($moneySender[0]['money'] < $money){
                 $data = 'У меня нет столько денег';
-                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);
+                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
                 exit;
             }else{
-                $this->model->userSendMoney($myLogin,$receiver,$money);
+                $date = date('d/m, H:i:s');
+                $this->model->userSendMoney($sender,$receiver,$money,$text,$date);
                 $data = 'Сумма в размере '.$money.' отправлена персонажу '.$receiver.'.';
-                $this->view->render('Найти игрока', 'user/sendmoneyStatus.php', 'template.php', $data);exit;
+                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                exit;
             }
         }
-        $this->view->render('Перевод денег', 'user/sendmoney.php', 'template.php');
+        $this->view->render('Перевод средств', 'user/sendmoney.php', 'template.php');
     }
 
     public function actionLogout() {

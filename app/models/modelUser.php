@@ -26,14 +26,21 @@ class ModelUser extends Model {
         return $this->insert($sql);
     }
 
-    public function userSendMoney($login,$money,$text) {
-        $sql = "UPDATE `users` SET `money` = '$money' WHERE `login` = '$login'";
-        return $this->update($sql);
-    }
+    public function userSendMoney($sender,$receiver,$sendMoney,$text,$date) {
+        $moneySender = "SELECT `money` FROM `users` WHERE `login` = '$sender'";
+        $moneyReceiver = "SELECT `money` FROM `users` WHERE `login` = '$receiver'";
+        $moneySender = $this->select($moneySender);
+        $moneyReceiver = $this->select($moneyReceiver);
 
-    public function userMinusMoney($login,$money) {
-        $sql = "UPDATE `users` SET `money` = `money` - '$money' WHERE `login` = '$login'";
-        return $this->update($sql);
-    }
+        $moneySender = $moneySender[0]['money'] - $sendMoney;
+        $moneyReceiver = $moneyReceiver[0]['money'] + $sendMoney;
 
+        $moneyUpdSender = "UPDATE `users` SET `money` = '$moneySender' WHERE `login` = '$sender'";
+        $this->update($moneyUpdSender);
+        $moneyUpdReceiver = "UPDATE `users` SET `money` = '$moneyReceiver' WHERE `login` = '$receiver'";
+        $this->update($moneyUpdReceiver);
+
+        $writeLog = "INSERT INTO `log_transfer` (`id`,`sender`,`receiver`,`text`,`date`,`money`,`item`) VALUES ('NULL','$sender','$receiver','$text','$date','$sendMoney','NULL')";
+        $this->insert($writeLog);
+    }
 }

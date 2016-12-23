@@ -77,8 +77,8 @@
                 <li><a href="/mail">Почта</a></li>
                 <li><a href="/user/search">Найти персонажа</a></li>
                 <li><a href="/user/sendmoney">Перевод денег</a></li>
-                <li><a href="/log/money">Протокол переводов</a></li>
-                <li><a href="/log/battle">Протокол боев</a></li>
+                <li><a href="/log/transfer?id=<?=$_COOKIE['id']?>">Протокол переводов</a></li>
+                <li><a href="/log/battle?id=">Протокол боев</a></li>
                 <li><a href="/user/setting">Настройки<a/></li>
             </ul>
         </div>
