@@ -1,5 +1,6 @@
 <?php
 class ModelLog extends Model {
+
     public function getTransferLog($id) {
         $userData = $this->select("SELECT * FROM `users` WHERE `id` = '$id'");
         $login = $userData[0]['login'];
