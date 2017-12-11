@@ -11,6 +11,7 @@
                     <a href="/user/">Персонаж</a> |
                     <a href="/mail/">Почта</a> |
                     <a href="/map/">Карта</a> |
+                    <a href="/battle/">Бои</a> |
                     <a href="/forum/">Форум</a>
                 </nav>
             </div>
