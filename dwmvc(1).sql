@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 20 2016 г., 11:11
+-- Время создания: Дек 12 2017 г., 10:15
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -23,26 +23,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `log_transfer`
+--
+
+CREATE TABLE IF NOT EXISTS `log_transfer` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `sender` varchar(255) NOT NULL,
+  `receiver` varchar(255) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `money` int(11) NOT NULL,
+  `item` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Дамп данных таблицы `log_transfer`
+--
+
+INSERT INTO `log_transfer` (`id`, `sender`, `receiver`, `text`, `date`, `money`, `item`) VALUES
+(1, 'admin', 'user', 'Просто так', '23/12, 12:19', 10000, 'NULL'),
+(2, 'admin', 'user', 'Проверка!!!', '23/12, 15:06', 5000, 'NULL'),
+(3, 'user', 'admin', 'Обраточка', '23/12, 15:08', 3000, 'NULL'),
+(4, 'admin', 'user', '100', '24/04, 14:55:05', 100, 'NULL'),
+(5, 'admin', 'user', '', '12/12, 14:57:58', 1, 'NULL'),
+(6, 'admin', 'user', '', '12/12, 14:58:25', 1, 'NULL'),
+(7, 'admin', 'admin', 'Без примечания', '12/12, 14:58:52', 1, 'NULL');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `mail`
 --
 
 CREATE TABLE IF NOT EXISTS `mail` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `sender` varchar(255) NOT NULL,
-  `reciever` varchar(255) NOT NULL,
+  `receiver` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
+  `new` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `mail`
---
-
-INSERT INTO `mail` (`id`, `sender`, `reciever`, `date`, `title`, `text`) VALUES
-(1, 'Папа Римски', 'admin', '20.12.2016 16:00', 'Ну привет', 'Читаешь?'),
-(2, 'Мама Римска', 'admin', '26.12.2016 17:00', 'Оп-оп', 'прувет');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -135,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `threads` (
   `user_id` int(11) NOT NULL,
   `date` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=130 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=134 ;
 
 --
 -- Дамп данных таблицы `threads`
@@ -267,7 +290,11 @@ INSERT INTO `threads` (`id`, `mid`, `fid`, `type`, `title`, `text`, `user`, `use
 (126, 123, 0, 'topic', '', 'dsf', 'admin', 8, '02/11, 11:15'),
 (127, 0, 4, 'topic', 'dfg', 'dfg', 'admin', 8, '03/11, 13:58'),
 (128, 0, 4, 'topic', 'ghj', 'ghj', 'admin', 8, '03/11, 14:13'),
-(129, 0, 2, 'topic', 'sdf', 'sdf', 'admin', 8, '07/11, 12:08');
+(129, 0, 2, 'topic', 'sdf', 'sdf', 'admin', 8, '07/11, 12:08'),
+(130, 15, 0, 'topic', '', 'dfg', 'admin', 8, '24/12, 13:10'),
+(131, 15, 0, 'topic', '', 'hjgjgh', 'admin', 8, '24/12, 13:10'),
+(132, 81, 0, 'topic', '', 'adasd', 'admin', 8, '24/04, 14:47'),
+(133, 123, 0, 'topic', '', 'ads', 'admin', 8, '24/04, 14:47');
 
 -- --------------------------------------------------------
 
@@ -300,6 +327,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `health` int(3) NOT NULL DEFAULT '10',
   `endurance` int(3) NOT NULL DEFAULT '10',
   `totalpoint` int(3) NOT NULL DEFAULT '0',
+  `mailstatus` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
@@ -308,20 +336,20 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `pass`, `admin`, `regdate`, `logdate`, `regip`, `logip`, `online`, `status`, `status2`, `money`, `euro`, `blvl`, `bexp`, `elvl`, `eexp`, `plvl`, `pexp`, `strength`, `accuracy`, `health`, `endurance`, `totalpoint`) VALUES
-(1, 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 'user', '', '04.02.2016, 15:23:19', '', '127.0.0.1', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(5, '4321', '4d1ea1367acf0560c6716dd076a84d7f', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(6, 'qwer', 'caf1a3dfb505ffed0d024130f58c5cfa', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(7, 'fdgdfg', 'e369853df766fa44e1ed0ff613f563bd', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(8, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '08.02.2016, 14:40:46', '', '127.0.0.1', 'В сети', 'Гражданин города', 'Живой', 10000, 0, 0, 0, 0, 0, 0, 0, 10, 10, 13, 10, 0),
-(9, 'admin1', '21232f297a57a5a743894a0e4a801fc3', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(10, 'obmin', '21232f297a57a5a743894a0e4a801fc3', 'user', '26/11, 09:38', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(11, 'user2', '7e58d63b60197ceb55a1c487989a3720', 'user', '30.11.2015', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(12, 'user3', '92877af70a45fd6a2ed7fe81e1236b78', 'user', '30.11.2015, 06:06', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(13, 'vasya2', '46f94c8de14fb36680850768ff1b7f2a', 'user', '03.02.2016, 15:19', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(15, 'vasya3', '46f94c8de14fb36680850768ff1b7f2a', 'user', '03.02.2016, 15:45', '0', '127.0.0.1', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(16, 'vasya4', '46f94c8de14fb36680850768ff1b7f2a', 'user', '03.02.2016, 15:45', '0', '127.0.0.1', '0', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0),
-(17, 'gubskiyev', 'de0cd63188ef1c5d64bb2b6d0d9dcd50', 'user', '', '', '', '0', 'Не в сети', 'Гость', 'Живой', 5000, NULL, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0);
+INSERT INTO `users` (`id`, `login`, `pass`, `admin`, `regdate`, `logdate`, `regip`, `logip`, `online`, `status`, `status2`, `money`, `euro`, `blvl`, `bexp`, `elvl`, `eexp`, `plvl`, `pexp`, `strength`, `accuracy`, `health`, `endurance`, `totalpoint`, `mailstatus`) VALUES
+(1, 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 'user', '', '04.02.2016, 15:23:19', '', '127.0.0.1', 'Не в сети', 'Гость', 'Живой', 22103, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(5, '4321', '4d1ea1367acf0560c6716dd076a84d7f', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(6, 'qwer', 'caf1a3dfb505ffed0d024130f58c5cfa', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(7, 'fdgdfg', 'e369853df766fa44e1ed0ff613f563bd', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(8, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '08.02.2016, 14:40:46', '', '127.0.0.1', 'В сети', 'Гражданин города', 'Живой', 497899, 0, 0, 0, 0, 0, 0, 0, 10, 10, 13, 10, 0, 0),
+(9, 'admin1', '21232f297a57a5a743894a0e4a801fc3', 'user', '', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(10, 'obmin', '21232f297a57a5a743894a0e4a801fc3', 'user', '26/11, 09:38', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(11, 'user2', '7e58d63b60197ceb55a1c487989a3720', 'user', '30.11.2015', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(12, 'user3', '92877af70a45fd6a2ed7fe81e1236b78', 'user', '30.11.2015, 06:06', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(13, 'vasya2', '46f94c8de14fb36680850768ff1b7f2a', 'user', '03.02.2016, 15:19', '0', '', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(15, 'vasya3', '46f94c8de14fb36680850768ff1b7f2a', 'user', '03.02.2016, 15:45', '0', '127.0.0.1', '', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(16, 'vasya4', '46f94c8de14fb36680850768ff1b7f2a', 'user', '03.02.2016, 15:45', '0', '127.0.0.1', '0', 'Не в сети', 'Гость', 'Живой', 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0),
+(17, 'gubskiyev', 'de0cd63188ef1c5d64bb2b6d0d9dcd50', 'user', '', '', '', '0', 'Не в сети', 'Гость', 'Живой', 5000, NULL, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

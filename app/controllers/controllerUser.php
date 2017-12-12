@@ -105,6 +105,8 @@ class ControllerUser extends Controller {
             $moneySender = $this->model->getUserData($_COOKIE['login']);
             $sender = $_COOKIE['login'];
 
+            if($text == NULL) $text = "Без примечания";
+
             if($money <= 0) {
                 $data = 'Сумма не может быть меньше 1$';
                 $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);

@@ -4,12 +4,21 @@
             Информация
         </div>
         <?php foreach($data as $user): ;?>
+
         <div class="body-left">
             <div id="login">
                 <a href="info?id=<?=$user['id']?>">
                     <?=$user['login']?>
                 </a>
             </div>
+
+            <!--НОВАЯ ПОЧТА -->
+            <?php
+                if($user['mailstatus'] == 1) {
+                    echo '<a class="newmail" href="/mail/">'.'Новая почта!'.'</a>';
+                }
+            ?>
+
             <div id="money">
                 Наличность: <b>$<?=$user['money']?></b>
             </div>

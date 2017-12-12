@@ -1,3 +1,4 @@
+
 <div>
     <table align="center" width="40%">
         <tr align="center">
@@ -31,7 +32,11 @@
                 <input type="checkbox" name="check">
             </td>
             <td>
-                <a href="/mail/read?id=<?=$mail['id']?>"><?=$mail['title']?></a>
+                <?php if($mail['new'] == 0) { ?>
+                    <a href="/mail/read?id=<?=$mail['id']?>"><?=$mail['title']?></a>
+                <?php }else {?>
+                    <strong><a class="newmail" href="/mail/read?id=<?=$mail['id']?>"><?=$mail['title']?></a></strong>
+                <?php } ?>
             </td>
         </tr>
         <?php endforeach ;?>

@@ -12,15 +12,20 @@ class ModelMail extends Model {
         return $data;
     }
 
-    public function getInboxMailBySmsID($sms_id) {
+    public function getInboxMailBySmsID($sms_id,$receiver) {
+        $data = "UPDATE `mail` SET `new` = 0 WHERE `id` = '$sms_id'";
+        $this->update($data);
+        $data = "UPDATE `users` SET `mailstatus` = 0 WHERE `login` = '$receiver'";
+        $this->update($data);
         $data = "SELECT * FROM `mail` WHERE `id` = '$sms_id'";
         $data = $this->select($data);
         return $data;
     }
 
     public function addNewMail($sender,$receiver,$date,$title,$text) {
-        $data = "INSERT INTO `mail` (`id`,`sender`,`receiver`,`date`,`title`,`text`) VALUES ('NULL','$sender','$receiver','$date','$title','$text')";
-        //var_dump($data);die;
+        $data = "UPDATE `users` SET `mailstatus` = 1 WHERE `login` = '$receiver'";
+        $this->update($data);
+        $data = "INSERT INTO `mail` (`id`,`sender`,`receiver`,`date`,`title`,`text`,`new`) VALUES ('NULL','$sender','$receiver','$date','$title','$text',1)";
         $this->query($data);
     }
 
@@ -29,4 +34,5 @@ class ModelMail extends Model {
         $data = $this->select($data);
         return $data;
     }
+
 }

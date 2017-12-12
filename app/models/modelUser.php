@@ -6,6 +6,12 @@ class ModelUser extends Model {
         return $data[0]["COUNT(*)"];
     }
 
+    public function mailStatus($login)
+    {
+        $data = $this->select("SELECT `new` FROM `mail` WHERE `receiver` = '$login'");
+        return $data;
+    }
+
     public function getUser($login) {
         $data = $this->select("SELECT * FROM `users` WHERE `login` = '$login'");
         return $data[0];

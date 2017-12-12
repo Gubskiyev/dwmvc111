@@ -14,7 +14,8 @@ class ControllerMail extends Controller {
     public function actionView() {
         $login = $_COOKIE['login'];
         $data = $this->model->getInboxMailByUser($login);
-        $this->view->render('Почта', 'mail/inbox.php', 'template.php', $data);
+
+        $this->view->render('Почта', 'mail/inbox.php', 'template.php', $data, $data2);
     }
 
     public function actionOutbox() {
@@ -25,7 +26,8 @@ class ControllerMail extends Controller {
 
     public function actionRead() {
         $id = $_GET['id'];
-        $data = $this->model->getInboxMailBySmsID($id);
+        $login = $_COOKIE['login'];
+        $data = $this->model->getInboxMailBySmsID($id,$login);
 
         if ($data[0]['receiver'] == $_COOKIE['login']) {
             $this->view->render('Сообщение', 'mail/read.php', 'template.php', $data);
@@ -50,10 +52,11 @@ class ControllerMail extends Controller {
             $title = $_POST['title'];
             $text = trim(strip_tags($_POST['text']));
 
-            if(empty($this->model->getUserData($receiver))) Router::page404();
+            //if(empty($this->model->getUserData($receiver))) Router::page404();
             if(empty($title)) $title = 'RE:';
 
-            $this->model->addNewMail($sender,$receiver,$date,$title,$text);
+            $this->model->addNewMail($sender, $receiver, $date, $title, $text);
+
             header("location: /mail");
         } else header("Location: new");
     }
