@@ -11,6 +11,7 @@
     </table>
 </div>
 <br>
+<form name="delmess" method="post" action="/mail/delmessage/">
 <div class="mail">
     <table border="1" width="40%" align="center">
         <tr>
@@ -28,10 +29,10 @@
                     <?=$mail['date']?>
                 </td>
                 <td align="center">
-                    <input type="checkbox" name="check">
+                    <input type="checkbox" name="id[]" value="<?=$mail['id']?>">
                 </td>
                 <td>
-                    <a href="/mail/read?id=<?=$mail['id']?>"><?=$mail['title']?></a>
+                    <a href="/mail/read?type=2&amp;id_mail=<?=$mail['id_mail']?>"><?=$mail['title']?></a>
                 </td>
             </tr>
         <?php endforeach ;?>
@@ -45,8 +46,9 @@
                 <a href="/mail/new">Написать сообщение</a>
             </td>
             <td>
-                Удалить сообщения
+                <input type="submit" name="submit" value="Удалить сообщения">
             </td>
         </tr>
     </table>
 </div>
+</form>

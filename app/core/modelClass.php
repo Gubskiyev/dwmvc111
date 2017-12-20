@@ -35,4 +35,8 @@ class Model {
         return $this->query("SELECT * FROM `skill`");
     }
 
+    public function delete($query) {
+        return $this->query($query);
+    }
+
 }

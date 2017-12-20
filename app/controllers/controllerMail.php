@@ -25,21 +25,22 @@ class ControllerMail extends Controller {
     }
 
     public function actionRead() {
-        $id = $_GET['id'];
+        $id = $_GET['id_mail'];
         $login = $_COOKIE['login'];
-        $data = $this->model->getInboxMailBySmsID($id,$login);
 
-        if ($data[0]['receiver'] == $_COOKIE['login']) {
-            $this->view->render('Сообщение', 'mail/read.php', 'template.php', $data);
-        }elseif($data[0]['sender'] == $_COOKIE['login']) {
-            $this->view->render('Сообщение', 'mail/read.php', 'template.php', $data);
+        if($_GET['type'] == 1) {
+            $data = $this->model->getInboxMailBySmsID($id,$login);
+            $this->view->render('Сообщение', 'mail/readInBox.php', 'template.php', $data);
+
+        }elseif ($_GET['type'] == 2) {
+            $data = $this->model->getOutboxMailBySmsID($id,$login);
+            $this->view->render('Сообщение', 'mail/readOutBox.php', 'template.php', $data);
         }else header("Location: /mail/cantread ");
     }
 
     public function actionNew() {
         if($_GET['mailto']) {
             if(!$this->model->getUserData($_GET['mailto'])) Router::page404();
-
         }
         $this->view->render('Новое письмо', 'mail/new.php', 'template.php');
     }
@@ -51,15 +52,23 @@ class ControllerMail extends Controller {
             $date = date('d/m, H:i');
             $title = $_POST['title'];
             $text = trim(strip_tags($_POST['text']));
+            $type = $_POST['type'];
 
-            //if(empty($this->model->getUserData($receiver))) Router::page404();
             if(empty($title)) $title = 'RE:';
 
-            $this->model->addNewMail($sender, $receiver, $date, $title, $text);
+            $this->model->addNewMail(1,$sender, $receiver, $date, $title, $text);
+            $this->model->addNewMail(2,$sender, $receiver, $date, $title, $text);
 
             header("location: /mail");
         } else header("Location: new");
     }
 
+    public function actionDelMessage()
+    {
+        foreach ($_POST['id'] as $id) {
+           $this->model->delMailMessage($id);
+        }
+        header("Location: /mail/");
+    }
 
 }
