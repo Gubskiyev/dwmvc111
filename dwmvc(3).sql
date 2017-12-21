@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 12 2017 г., 10:15
+-- Время создания: Дек 21 2017 г., 11:21
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -58,6 +58,8 @@ INSERT INTO `log_transfer` (`id`, `sender`, `receiver`, `text`, `date`, `money`,
 
 CREATE TABLE IF NOT EXISTS `mail` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_mail` varchar(256) NOT NULL,
+  `type` int(11) NOT NULL,
   `sender` varchar(255) NOT NULL,
   `receiver` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL,
@@ -65,7 +67,96 @@ CREATE TABLE IF NOT EXISTS `mail` (
   `text` text NOT NULL,
   `new` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+
+--
+-- Дамп данных таблицы `mail`
+--
+
+INSERT INTO `mail` (`id`, `id_mail`, `type`, `sender`, `receiver`, `date`, `title`, `text`, `new`) VALUES
+(30, '1513749029', 1, 'admin', 'admin', '20/12, 14:50', 'RE:', '123213', 0),
+(32, '1513753046', 2, 'admin', 'user', '20/12, 15:57', 'RE:', '', 0),
+(33, '1513754429', 1, 'admin', 'user', '20/12, 16:20', 'Проверка', 'валовра', 0),
+(34, '1513754429', 2, 'admin', 'user', '20/12, 16:20', 'Проверка', 'валовра', 0),
+(38, '1513754570', 2, 'admin', 'admin', '20/12, 16:22', '!', 'dfjkfdj', 0),
+(40, '1513756018', 2, 'admin', 'admin', '20/12, 16:46', '!', 'dfsfd', 0),
+(41, '1513756225', 1, 'admin', 'user', '20/12, 16:50', 'Почта', 'раз раз', 0),
+(42, '1513756225', 2, 'admin', 'user', '20/12, 16:50', 'Почта', 'раз раз', 0),
+(43, '1513756351', 1, 'user', 'admin', '20/12, 16:52', 'RE: Почта', 'два два', 0),
+(44, '1513756351', 2, 'user', 'admin', '20/12, 16:52', 'RE: Почта', 'два два', 0),
+(46, '1513756412', 2, 'admin', 'user', '20/12, 16:53', 'RE: RE: Почта', 'Три три', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `map`
+--
+
+CREATE TABLE IF NOT EXISTS `map` (
+  `x` int(2) DEFAULT NULL,
+  `y` int(2) DEFAULT NULL,
+  `name` char(30) DEFAULT NULL,
+  `bot` int(1) DEFAULT NULL,
+  `area1` int(2) DEFAULT NULL,
+  `pri` int(11) DEFAULT NULL,
+  `area2` int(2) DEFAULT NULL,
+  `area3` int(2) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `map`
+--
+
+INSERT INTO `map` (`x`, `y`, `name`, `bot`, `area1`, `pri`, `area2`, `area3`) VALUES
+(1, 1, '11', 0, 0, 100000, NULL, NULL),
+(1, 2, '12', 0, 0, 100000, NULL, NULL),
+(1, 3, '13', 0, 0, 100000, NULL, NULL),
+(1, 4, '14', 0, 0, 100000, NULL, NULL),
+(1, 5, '15', 0, 0, 100000, NULL, NULL),
+(1, 6, '16', 0, 0, 100000, NULL, NULL),
+(1, 7, '17', 0, 0, 100000, NULL, NULL),
+(2, 1, '21', 0, 0, 100000, NULL, NULL),
+(2, 2, '22', 0, 0, 100000, NULL, NULL),
+(2, 3, '23', 0, 0, 100000, NULL, NULL),
+(2, 4, '24', 0, 0, 100000, NULL, NULL),
+(2, 5, '25', 0, 0, 100000, NULL, NULL),
+(2, 6, '26', 0, 0, 100000, NULL, NULL),
+(2, 7, '27', 0, 0, 100000, NULL, NULL),
+(3, 1, '31', 0, 0, 100000, NULL, NULL),
+(3, 2, '32', 0, 0, 100000, NULL, NULL),
+(3, 3, '33', 0, 0, 100000, NULL, NULL),
+(3, 4, 'Gleam of Hope', 0, 0, 84000, 0, 0),
+(3, 5, 'Lost Way', 0, 0, 180000, 0, 0),
+(3, 6, '36', 0, 0, 100000, NULL, NULL),
+(3, 7, '37', 0, 0, 100000, NULL, NULL),
+(4, 1, '41', 0, 0, 100000, NULL, NULL),
+(4, 2, '42', 0, 0, 100000, NULL, NULL),
+(4, 3, 'Cry of Freedom', 0, 0, 84000, NULL, 0),
+(4, 4, 'Oasis', 0, 0, 84000, NULL, 0),
+(4, 5, 'Mirage', 0, 0, 100000, NULL, NULL),
+(4, 6, '46', 0, 0, 100000, NULL, NULL),
+(4, 7, '47', 0, 0, 100000, NULL, NULL),
+(5, 1, '51', 0, 0, 100000, NULL, NULL),
+(5, 2, '52', 0, 0, 100000, NULL, NULL),
+(5, 3, 'The Graveyard Heart', 0, 0, 180000, 0, 0),
+(5, 4, 'Realty', 0, 0, 100000, NULL, NULL),
+(5, 5, '55', 0, 0, 100000, NULL, NULL),
+(5, 6, '56', 0, 0, 100000, NULL, NULL),
+(5, 7, '57', 0, 0, 100000, NULL, NULL),
+(6, 1, '61', 0, 0, 100000, NULL, NULL),
+(6, 2, '62', 0, 0, 100000, NULL, NULL),
+(6, 3, '63', 0, 0, 100000, NULL, NULL),
+(6, 4, '64', 0, 0, 100000, NULL, NULL),
+(6, 5, '65', 0, 0, 100000, NULL, NULL),
+(6, 6, '66', 0, 0, 100000, NULL, NULL),
+(6, 7, '67', 0, 0, 100000, NULL, NULL),
+(7, 1, '71', 0, 0, 100000, NULL, NULL),
+(7, 2, '72', 0, 0, 100000, NULL, NULL),
+(7, 3, '73', 0, 0, 100000, NULL, NULL),
+(7, 4, '74', 0, 0, 100000, NULL, NULL),
+(7, 5, '75', 0, 0, 100000, NULL, NULL),
+(7, 6, 'The Smile of Rocks', 0, 0, 100000, NULL, NULL),
+(7, 7, '77', 0, 0, 100000, NULL, NULL);
 
 -- --------------------------------------------------------
 
