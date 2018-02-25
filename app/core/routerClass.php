@@ -21,7 +21,7 @@ class Router {
 
         if(file_exists('app/controllers/'.$controllerFile)) {
             include 'app/controllers/'.$controllerFile;
-        } else throw new Exception('Controller file not Found');
+        } else self::page404();
 
         if(file_exists('app/models/'.$modelFile)) {
             include 'app/models/'.$modelFile;

@@ -3,11 +3,12 @@ class Controller {
 
     protected $view;
     protected $model;
+    protected $config;
 
     public function __construct() {
         $this->view = new View();
         $this->model = new Model();
-
+        $this->config = new Config();
     }
 
     public function getUrlParams() {

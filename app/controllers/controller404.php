@@ -6,6 +6,6 @@ class controller404 extends Controller {
     }
 
     public function actionView() {
-        $this->view->render('404','viewErrPage404.php','template.php');
+        $this->view->render('404');
     }
 }

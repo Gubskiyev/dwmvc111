@@ -2,8 +2,9 @@
 class ControllerMail extends Controller {
 
     public function __construct(){
+        parent::__construct();
         $this->model = new ModelMail();
-        $this->view = new View();
+
         if(!$this->isLogin()) header('Location: /user/login'); //Проверка на логон
     }
 
@@ -13,15 +14,16 @@ class ControllerMail extends Controller {
 
     public function actionView() {
         $login = $_COOKIE['login'];
-        $data = $this->model->getInboxMailByUser($login);
 
-        $this->view->render('Почта', 'mail/inbox.php', 'template.php', $data, $data2);
+        $data[] = $this->model->getInboxMailByUser($login);
+
+        $this->view->render('Почта', $data);
     }
 
     public function actionOutbox() {
         $login = $_COOKIE['login'];
-        $data = $this->model->getOutboxMailByUser($login);
-        $this->view->render('Почта', 'mail/outbox.php', 'template.php', $data);
+        $data[] = $this->model->getOutboxMailByUser($login);
+        $this->view->render('Исходящая почта', $data);
     }
 
     public function actionRead() {
@@ -29,12 +31,12 @@ class ControllerMail extends Controller {
         $login = $_COOKIE['login'];
 
         if($_GET['type'] == 1) {
-            $data = $this->model->getInboxMailBySmsID($id,$login);
-            $this->view->render('Сообщение', 'mail/readInBox.php', 'template.php', $data);
+            $data[] = $this->model->getInboxMailBySmsID($id,$login);
+            $this->view->render('Сообщение', $data);
 
         }elseif ($_GET['type'] == 2) {
-            $data = $this->model->getOutboxMailBySmsID($id,$login);
-            $this->view->render('Сообщение', 'mail/readOutBox.php', 'template.php', $data);
+            $data[] = $this->model->getOutboxMailBySmsID($id,$login);
+            $this->view->render('Сообщение', $data);
         }else header("Location: /mail/cantread ");
     }
 

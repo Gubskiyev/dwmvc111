@@ -2,12 +2,21 @@
 <html>
     <head>
         <title><?=$title?></title>
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">-->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/dw.css" rel="stylesheet">
     </head>
     <body>
-        <?php include 'app/views/viewHeader.php'; ?>
-        <?php include 'app/views/'.$content;?>
-        <?php include 'app/views/viewFooter.php'?>
+        <?php include_once 'app/views/viewHeader.php'; ?>
+        <div class="container">
+            <div class="row">
+                <!--<?php include_once 'app/views/'.$content;?>-->
+                <?php include $content;?>
+            </div>
+        </div>
+            <?php include_once 'app/views/viewFooter.php'?>
     </body>
 </html>

@@ -6,4 +6,10 @@ class ModelMap extends Model {
         $data = $this->select($data);
         return $data;
     }
+
+    public function getRealtyFromSector($sector) {
+        $data = "SELECT * FROM `realty` WHERE `place` = '$sector'";
+        $data = $this->select($data);
+        return $data;
+    }
 }

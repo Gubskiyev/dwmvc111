@@ -3,16 +3,16 @@ class ControllerUser extends Controller {
 
     public function __construct() {
         parent::__construct();
-
         $this->model = new ModelUser();
-        $this->view = new View();
     }
 
     public function actionView() {
         if(!$this->isLogin()) header('Location: /user/login'); //Проверка на логон
-        $data = $this->model->getUserData($_COOKIE['login']);
-        $data2 = $this->model->getSkill();
-        $this->view->render('Персонаж','user/index.php','template.php',$data,$data2);
+
+        $data[] = $this->model->getUserData($_COOKIE['login']);
+        $data[] = $this->model->getLast5NewsList();
+
+        $this->view->render('Персонаж', $data);
     }
 
     public function actionRegister() {
@@ -52,13 +52,12 @@ class ControllerUser extends Controller {
             }
 
         } else {
-            $title = 'Регистрация';
-
-            $this->view->render($title,'user/register.php','template.php');
+            $this->view->render('Регистрация');
         }
     }
 
     public function actionLogin() {
+        if (isset($_COOKIE['login'])) header('Location: /user/');
         if (isset($_POST['auth'])) {
             $login = $_POST['login'];
             $pass = trim(strip_tags($_POST['pass']));
@@ -75,8 +74,7 @@ class ControllerUser extends Controller {
                 $this->view->render('Авторизация','user/login.php','template.php');
             }
         } else {
-            $title = 'Вход в игру';
-            $this->view->render($title, 'user/login.php', 'template.php');
+            $this->view->render('Вход в игру');
         }
     }
 
@@ -84,8 +82,8 @@ class ControllerUser extends Controller {
         $id = trim(strip_tags(intval($_GET['id'])));
         if($id == NULL || $id == '' || $id == '0') header('Location: info?id=1');
         if(intval($id)) {
-            $data = $this->model->getUserDataByID($id);
-            $this->view->render('Информация','user/info.php','template.php',$data);
+            $data[] = $this->model->getUserDataByID($id);
+            $this->view->render('Информация', $data);
         }
     }
 

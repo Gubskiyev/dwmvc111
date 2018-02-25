@@ -1,3 +1,4 @@
+
 div {
 	margin: 5px;
 }
@@ -22,3 +23,20 @@ body {
 
 }
 
+.layout { position: relative;}
+.layout DIV { position: absolute; }
+.team-1 { background: #C7E3E4; left: 0; right: 50%; margin-right: 100px; }
+.action { background: #E0D2C7; width: 200px; left: 50%; margin-left: -100px; }
+.team-2 { background: #ECD5DE; left: 50%; right: 0; margin-left: 100px; }
+
+.blvl {
+    color: darkred;
+}
+
+.elvl {
+    color: darkblue;
+}
+
+.plvl {
+    color: darkgreen;
+}

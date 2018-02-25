@@ -13,8 +13,8 @@ class ControllerLog extends Controller {
 
     public function actionTransfer() {
         $id = $_GET['id'];
-        $data = $this->model->getTransferLog($id);
+        $data[] = $this->model->getTransferLog($id);
 
-        $this->view->render('История переводов персонажа', 'log/transfer.php', 'template.php', $data);
+        $this->view->render('История переводов персонажа', $data);
     }
 }

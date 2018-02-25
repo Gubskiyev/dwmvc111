@@ -3,11 +3,17 @@ class Model {
 
     public $config;
     public $mysqli;
+    public $pdo;
 
     public function __construct() {
         $this->config = new Config();
         $this->mysqli = new mysqli(Config::DBHOST,Config::DBUSER,Config::DBPASS,Config::DBNAME);
         $this->mysqli->query("SET NAMES 'utf8'");
+        /*try{
+            $this->pdo = new PDO("mysql:dbname=dwmvc;host=localhost", Config::DBUSER,Config::DBPASS);
+        }catch(PDOException $e){
+            echo $e->getMessage();
+        }*/
     }
 
     public function query($query) {

@@ -1,6 +1,9 @@
+</div>
+<div class="card my-4">
+    <h5 class="card-header">Входящие сообщения</h5>
+    <div class="card-body">
 
-<div>
-    <table align="center" width="40%">
+    <table width="80%" align="center">
         <tr align="center">
             <td>
                 <a href="/mail/">Входящие сообщения</a>
@@ -11,10 +14,16 @@
         </tr>
     </table>
 </div>
-<br>
+</div>
+
+
+<div class="card my-4">
+
+    <div class="card-body">
     <form name="delmess" method="post" action="/mail/delmessage/">
+        <div class="form-group">
     <div class="mail">
-        <table border="1" width="40%" align="center">
+        <table class="table table-hover" width="40%" align="center">
             <tr>
                 <th width="15%">От</th>
                 <th width="15%">Дата</th>
@@ -43,9 +52,10 @@
             <?php endforeach ;?>
         </table>
     </div>
-    <br>
+
+<hr>
     <div class="mail buttons">
-        <table border="1" width="40%" align="center">
+        <table class="table table-hover" width="40%" align="center">
             <tr>
                 <td>
                     <a href="/mail/new">Написать сообщение</a>
@@ -59,3 +69,7 @@
             </tr>
         </table>
     </form>
+    </div>
+</div>
+</div>
+

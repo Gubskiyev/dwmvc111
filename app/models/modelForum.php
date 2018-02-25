@@ -34,7 +34,7 @@ class ModelForum extends Model {
     }
 
     public function addNewMessage($mid,$text,$user,$user_id,$date) {
-        $sql = "INSERT INTO `threads` (`id`,`mid`,`fid`,`type`,`title`,`text`,`user`,`user_id`,`date`) VALUES ('NULL','$mid','0','topic','','$text','$user','$user_id','$date')";
+        $sql = "INSERT INTO `threads` (`id`,`mid`,`fid`,`type`,`title`,`text`,`user`,`user_id`,`date`) VALUES ('NULL','$mid','0','reply','','$text','$user','$user_id','$date')";
 		$this->query($sql);
     }
 
@@ -46,13 +46,10 @@ class ModelForum extends Model {
 
     }
 
-
-
     public function getUserData($login) {
         $sql = "SELECT `id`,`login` FROM `users` WHERE `login` = '$login'";
         return $this->select($sql);
     }
-
 
     public function getCountMessages($id) {
         $data = $this->select("SELECT * FROM `threads` WHERE `mid` = '".$id."'");

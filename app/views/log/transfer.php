@@ -1,9 +1,9 @@
 <div class="transfer">
-    <table width="40%">
+    <table width="100%">
         <?php foreach($data as $log): ;?>
         <tr>
-            <td><?=$log['date']?>:</td>
-            <td><b><?=$log['sender']?></b> передал <b><?=$log['money']?></b> в пользу <?=$log['receiver']?>: "<?=$log['text']?>"</td>
+            <td><?=$log['date']?> | </td>
+            <td><b><?=$log['sender']?></b> передал <b><?=$log['money']?>$</b> в пользу <?=$log['receiver']?>: "<?=$log['text']?>"</td>
 
         </tr>
 

@@ -49,4 +49,9 @@ class ModelUser extends Model {
         $writeLog = "INSERT INTO `log_transfer` (`id`,`sender`,`receiver`,`text`,`date`,`money`,`item`) VALUES ('NULL','$sender','$receiver','$text','$date','$sendMoney','NULL')";
         $this->insert($writeLog);
     }
+
+    public function getLast5NewsList() {
+        $data = $this->select("select * from `threads` where `fid` = 1 order by `id` desc limit 5");
+        return $data;
+    }
 }
