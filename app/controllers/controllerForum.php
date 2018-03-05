@@ -4,12 +4,14 @@ class ControllerForum extends Controller {
 
     public function __construct() {
 		//if(!$this->isLogin()) header('Location: /user/login');
+        parent::__construct();
         $this->model = new ModelForum();
-        $this->view = new View();
         if($this->close == true) header("Location: 404");
     }
+
     public function actionView() {
 		$data[] = $this->model->getAllForums();
+
 		$this->view->render('Форум', $data);
     }
 
@@ -34,8 +36,9 @@ class ControllerForum extends Controller {
 			$data[] = $this->model->getThreadByID($fid,$tid);
             $data[] = $this->model->getForumByID($fid);
 
-			if($fid === $data[0][0]['fid']) { //Если FID в адресной строке имеется в запросе с TID то выводим страницу
-				$this->view->render('Сообщение', $data);
+			if($fid === $data[0][1]['fid'] || $fid === $data[0][0]['fid']) { //Если FID в адресной строке имеется в запросе с TID то выводим страницу
+
+                $this->view->render('Сообщение', $data);
 			}else Router::page404();
         }else Router::page404();
     }
@@ -49,14 +52,14 @@ class ControllerForum extends Controller {
     }
 
     public function actionPostThread() {
-        $date = date('d/m, H:i');
+        $date = date('d/m/Y, H:i');
         $this->model->addNewThread($_POST['fid'],$_POST['title'],$_POST['text'],$_POST['login'],$_COOKIE['id'],$date);
         header('Location: /forum/section?id='.$_POST['fid']);
     }
 
     public function actionPostMessage() {
-        $date = date('d/m, H:i');
-		$this->model->addNewMessage($_POST['mid'],$_POST['text'],$_POST['login'],$_COOKIE['id'],$date);
+        $date = date('d/m/Y, H:i');
+		$this->model->addNewMessage($_POST['mid'],$_POST['fid'],$_POST['text'],$_POST['login'],$_COOKIE['id'],$date);
         header('Location: /forum/message?fid='.$_POST['fid'].'&tid='.$_POST['mid']);
     }
 

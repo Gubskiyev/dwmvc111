@@ -5,8 +5,8 @@
             <table class="table table-hover">
                 <tr>
                     <th width="70%">Форум</th>
-                    <th width="20%">Последняя тема</th>
-                    <th width="10%">Всего</th>
+                    <th width="30%">Последняя тема</th>
+                    <th width="10%">Тем</th>
                 </tr>
 
                 <?php foreach($data['section'] as $section): ;?>
@@ -14,15 +14,15 @@
                         <td>
                             <div>
                                 <a href="/forum/section?id=<?=$section['id']?>">
-                                    <?=$section['title']?>
+                                     <?=$section['title']?>
                                 </a>
                             </div>
                             <div>
-                                <small><?=$section['description']?></small>
+                                <small><?=$section['desc']?></small>
                             </div>
                         </td>
                         <td>
-                            Последние сообщения
+                            <?=$data['lastThread'][$section['id']]['title']?> - <a href="/user/info?id=<?=$data['lastThread'][$section['id']]['user_id']?>"><?=$data['lastThread'][$section['id']]['user']?></a>
                         </td>
                         <td align="center">
                             <?=$data['count'][$section['id']]?>

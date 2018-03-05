@@ -6,6 +6,12 @@ class ModelMail extends Model {
         return $data;
     }
 
+    public function getNewInboxMailByUser($login) {
+        $data = "SELECT * FROM `mail` WHERE `receiver` = '$login' AND `type` = 1 AND `new` = 1 ORDER BY `id` DESC";
+        $data = $this->select($data);
+        return $data;
+    }
+
     public function getOutboxMailByUser($login) {
         $data = "SELECT * FROM `mail` WHERE `sender` = '$login' AND `type` = 2 ORDER BY `id` DESC";
         $data = $this->select($data);
@@ -32,8 +38,6 @@ class ModelMail extends Model {
         return $data;
     }
 
-
-
     public function addNewMail($type,$sender,$receiver,$date,$title,$text) {
         $data = "UPDATE `users` SET `mailstatus` = 1 WHERE `login` = '$receiver'";
         $this->update($data);
@@ -52,5 +56,15 @@ class ModelMail extends Model {
         $data = "DELETE FROM `mail` WHERE `id` = '$id'";
         //var_dump($data);die;
         $this->delete($data);
+    }
+
+    public function getCountAllMessage($login, $type) {
+        $data = $this->select("SELECT COUNT(*) FROM `mail` WHERE `receiver` = '$login' AND `type` = '$type'");
+        return $data;
+    }
+
+    public function getCountNewMessage($login, $type) {
+        $data = $this->select("SELECT COUNT(*) FROM `mail` WHERE `receiver` = '$login' AND `type` = '$type' AND `new` = '1'");
+        return $data;
     }
 }

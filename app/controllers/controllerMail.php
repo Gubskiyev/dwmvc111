@@ -15,9 +15,21 @@ class ControllerMail extends Controller {
     public function actionView() {
         $login = $_COOKIE['login'];
 
-        $data[] = $this->model->getInboxMailByUser($login);
+        if(isset($_GET['newmail'])) {
+            $data[] = $this->model->getNewInboxMailByUser($login);
+            $this->view->render('Новая почта', $data);
 
-        $this->view->render('Почта', $data);
+        }else {
+            $data[] = $this->model->getInboxMailByUser($login);
+            $data[] = $this->model->getCountAllMessage($login,'1');
+            $data[] = $this->model->getCountNewMessage($login, '1');
+
+            $this->view->render('Почта', $data);
+        }
+    }
+
+    public function actionNotread() {
+        $this->view->render("Не прочитанная почта", $data = null);
     }
 
     public function actionOutbox() {
@@ -33,11 +45,10 @@ class ControllerMail extends Controller {
         if($_GET['type'] == 1) {
             $data[] = $this->model->getInboxMailBySmsID($id,$login);
             $this->view->render('Сообщение', $data);
-
         }elseif ($_GET['type'] == 2) {
             $data[] = $this->model->getOutboxMailBySmsID($id,$login);
             $this->view->render('Сообщение', $data);
-        }else header("Location: /mail/cantread ");
+        }else $this->view->redirect('/mail/cantread');
     }
 
     public function actionNew() {

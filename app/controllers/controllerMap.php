@@ -2,9 +2,8 @@
 class ControllerMap extends Controller {
     public function __construct() {
         parent::__construct();
-        if(!$this->isLogin()) header('Location: /user/login'); //Проверка на логон
+        if(!$this->isLogin()) $this->view->redirect('/user/login');
         $this->model = new ModelMap();
-        $this->view = new View();
     }
 
     public function actionView() {

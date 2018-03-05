@@ -6,7 +6,7 @@
     <table width="80%" align="center">
         <tr align="center">
             <td>
-                <a href="/mail/">Входящие сообщения </a>(<?=$data3[0]['COUNT(*)']?>/<?=$data2[0]['COUNT(*)']?>)
+                <a href="/mail/">Входящие сообщения</a>
             </td>
             <td>
                 <a href="/mail/outbox">Исходящие сообщения</a>

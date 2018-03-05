@@ -106,7 +106,7 @@
                         <li><a href="/log/transfer?id=<?=$_COOKIE['id']?>">Протокол переводов</a></li>
                         <li><a href="/log/battle?id=<?=$_COOKIE['id']?>">Протокол боев</a></li>
                         <li><a href="/user/setting">Настройки<a/></li>
-                        <li><a href="/user/logout">Выход<a/></li>
+                        <li><a href="/user/logout"><font color="darkred">Выход</font><a/></li>
                     </ul>
                 </div>
             </div>

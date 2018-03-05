@@ -9,13 +9,13 @@
         <div class="form-group">
             <table class="table table-hover">
                 <tr>
-                    <th width="55%">Темы</th>
+                    <th width="45%">Темы</th>
                     <th width="10%">Автор</th>
                     <th width="15%">Дата</th>
                     <th width="5%">#</th>
-                    <th width="15%">Последнее сообщение</th>
+                    <th width="25%">Последнее сообщение</th>
                 </tr>
-                <?php foreach($data as $section): ;?>
+                <?php foreach($data['section'] as $section): ;?>
                     <tr>
                         <td><a href="/forum/message?fid=<?=$section['fid']?>&amp;tid=<?=$section['id']?>"><?=htmlentities($section['title'])?></a></td>
                         <td align="center">
@@ -24,10 +24,8 @@
                             </a>
                         </td>
                         <td align="center"><?=$section['date']?></td>
-                        <td align="center">
-                            <?=count($section['id'])?>
-                        </td>
-                        <td align="center"></td>
+                        <td align="center"><?=$data['count'][$section['id']]?></td>
+                        <td align="center"><?=$data['lastMessage'][$section['id']]['date']?>, от <a href="/user/info?id=<?=$data['lastMessage'][$section['id']]['user_id']?>"><?=$data['lastMessage'][$section['id']]['user']?></a></td>
                     </tr>
                 <?php endforeach ;?>
             </table>

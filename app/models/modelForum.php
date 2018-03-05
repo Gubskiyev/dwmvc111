@@ -2,30 +2,73 @@
 class ModelForum extends Model {
 
     public function getAllForums() {
-        $sections = count($this->select("SELECT * FROM `section`"));
+        $sections = $this->getCountSections();
 
         for($i = 1; $i <= $sections; $i++) {
-            $sql = "SELECT COUNT(*) FROM `threads` WHERE `fid` = '$i'";
+            $sql = "SELECT COUNT(*) FROM `threads` WHERE `fid` = '$i' AND `type` = 'topic'";
             $total[$i] = $this->select($sql);
 
             foreach($total[$i] as $v) {
                 $count[$i] = $v["COUNT(*)"];
             }
-        }
 
+            $sqlLastThread = "SELECT * FROM `threads` WHERE `fid` = '$i' AND `type` = 'topic'";
+            $total[$i] = $this->select($sqlLastThread);
+            foreach ($total[$i] as $v) {
+                $lastThread[$i] = $v;
+            }
+        }
+        $data['lastThread'] = $lastThread;
         $data['count'] = $count;
         $data['section'] = $this->select("SELECT * FROM `section`");
         return $data;
     }
 
     public function getThreadsBySection($section) {
-        $sql = "SELECT * FROM `threads` WHERE `fid` = '$section' ORDER BY `id` DESC";
-        return $this->select($sql);
+        $countMessages = $this->select("SELECT DISTINCT `mid` FROM `threads` where `fid` = '$section' AND `mid` > 0");
+        foreach ($countMessages as $k => $v) {
+            $k++;
+            $mid[$k] = $v['mid'];
+        }
+
+        for($i = 1; $i <= $mid[$i]; $i++) {
+            $sql = "SELECT COUNT(*) FROM `threads` WHERE `mid` = '$mid[$i]'";
+            $total[$i] = $this->select($sql);
+
+            foreach($total[$i] as $v) {
+                $count[$mid[$i]] = $v["COUNT(*)"]+=1;
+            }
+        }
+
+
+        for($i = 1; $i <= $mid[$i]; $i++) {
+            $sql = "SELECT * FROM `threads` WHERE `fid` = '$section' AND `id` = '$mid[$i]' OR `mid` = '$mid[$i]' ORDER BY `id` DESC LIMIT 1";
+            $total[$i] = $this->select($sql);
+
+            foreach($total[$i] as $v) {
+                $lastMess[$mid[$i]] = $v;
+            }
+        }
+
+
+        $data['count'] = $count;
+
+        if($data['count'] == NULL)
+        $data['count'] = 1;
+
+        $data['lastMessage'] = $lastMess;
+        $data['section'] = $this->select("SELECT * FROM `threads` WHERE `fid` = '$section' AND `type` = 'topic' ORDER BY `id` DESC");
+        return $data;
+    }
+
+    public function getCountSections() {
+        $data = count($this->select("SELECT * FROM `section`"));
+        return $data;
     }
 
     public function getThreadByID($fid,$tid) {
-        $sql = "SELECT * FROM `threads` WHERE `id` = '$tid' OR `mid` = '$tid'";
-		return $this->select($sql);
+        $data = $this->select("SELECT * FROM `threads` WHERE `id` = '$tid' OR `mid` = '$tid' ORDER BY `id`");
+		return $data;
     }
 
     public function addNewThread($fid,$title,$text,$user,$user_id,$date) {
@@ -33,8 +76,8 @@ class ModelForum extends Model {
         $this->query($sql);
     }
 
-    public function addNewMessage($mid,$text,$user,$user_id,$date) {
-        $sql = "INSERT INTO `threads` (`id`,`mid`,`fid`,`type`,`title`,`text`,`user`,`user_id`,`date`) VALUES ('NULL','$mid','0','reply','','$text','$user','$user_id','$date')";
+    public function addNewMessage($mid,$fid,$text,$user,$user_id,$date) {
+        $sql = "INSERT INTO `threads` (`id`,`mid`,`fid`,`type`,`title`,`text`,`user`,`user_id`,`date`) VALUES ('NULL','$mid','$fid','reply','','$text','$user','$user_id','$date')";
 		$this->query($sql);
     }
 
