@@ -54,4 +54,20 @@ class ModelUser extends Model {
         $data = $this->select("select * from `threads` where `fid` = 1 order by `id` desc limit 5");
         return $data;
     }
+
+    public function getUserOnline() {
+        $data = $this->select("select `id`,`login`,`blvl` from  `users` where `online` = 'В сети'");
+        return $data;
+    }
+
+    public function setUserOnline($login) {
+        $sql = "update users set `online` = 'В сети' where `login` = '".$login."'";
+        return $this->update($sql);
+    }
+
+    public function setUserOffline($login) {
+        $sql = "update users set `online` = 'Не в сети' where `login` = '".$login."'";
+        return $this->update($sql);
+    }
+
 }

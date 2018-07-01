@@ -17,7 +17,10 @@ class ControllerMail extends Controller {
 
         if(isset($_GET['newmail'])) {
             $data[] = $this->model->getNewInboxMailByUser($login);
-            $this->view->render('Новая почта', $data);
+            //var_dump(empty($data));die;
+
+            if(empty($data) != FALSE) $this->view->render('Новая почта', $data);
+            else $this->view->redirect('/mail/');
 
         }else {
             $data[] = $this->model->getInboxMailByUser($login);
@@ -55,7 +58,7 @@ class ControllerMail extends Controller {
         if($_GET['mailto']) {
             if(!$this->model->getUserData($_GET['mailto'])) Router::page404();
         }
-        $this->view->render('Новое письмо', 'mail/new.php', 'template.php');
+        $this->view->render('Новое письмо', $data);
     }
 
     public function actionPostMail() {

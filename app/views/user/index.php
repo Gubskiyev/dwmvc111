@@ -1,130 +1,176 @@
-<div class="col-lg-8">
+<div class="mainContents">
+    <div class="agridLCR">
+        <div class="agItem ag0">
+            <div class="sideMenu">
+                <div class="head">Сервисы</div>
+                <div class="body">
+                    <a href="/inventory/">Рюкзак</a>
+                    <a href="/shop/">Магазин</a>
 
-    <h5 class="mt-4">Ваш персонаж</h5>
+                    <div>&nbsp;</div>
+
+                    <a href="/mail/">Личная почта</a>
+                    <a href="/user/search/">Найти персонажа</a>
+                    <a href="/user/friends/">Друзья</a>
+                    <a href="/user/sendmoney/">Денежные переводы</a>
+                    <div>&nbsp;</div>
+                    <a href="/user/settings/">Настройки персонажа</a>
+                    <a href="/user/parameters/">Управление параметрами</a>
+
+                    <div>&nbsp;</div>
+                    <a href="/char/clans/">Кланы</a>
+                </div>
+            </div>
+
+            <div class="sideMenu">
+                <div class="head">Протоколы</div>
+                <div class="body">
+                    <a href="/log/crime/1319/">Правонарушений</a>
+                    <a href="/log/btl/1319/">Проведенных боев</a>
+                    <a href="/log/money/1319/">Движения денег</a>
+                </div>
+            </div>
+
+            <div class="sideMenu">
+                <div class="head">&nbsp;</div>
+                <div class="body">
+                    <a href="/user/logout/">Выход</a>
+                </div>
+            </div>
+        </div>
         <?php foreach($data as $user): ;?>
-
-
-            <div id="login">
-                <a href="info?id=<?=$user['id']?>">
-                    <?=$user['login']?>
-                </a>
+        <div class="agItem ag1">
+            <div class="pageTitle userTitle">
+                <div class="right">
+                    <span class="money"><?=$user['money']?> $</span><br>
+                    <span class="money"><?=$user['euro']?> CAPS</span><br>
+                </div>
+                <a href="/user/info?id=<?=$user['id']?>"><?=$user['login']?></a>
             </div>
 
-            <!--НОВАЯ ПОЧТА -->
-            <?php
-                if($user['mailstatus'] == 1) {
-                    echo '<a class="newmail" href="/mail/">'.'Новая почта!'.'</a>';
-                }
-            ?>
-
-            <div id="money">
-                Наличность: <b>$<?=$user['money']?></b>
-                <?php
-                    if($user['euro'] != 0)
-                    {
-                        echo "<br>Евро-юниты: <b>&#8364;".$user['euro']."</b>";
-                    }
-
-                ?>
-            </div>
-            <br>
-            <div id="hp">
-                Здоровье: <?=$user['health']*6?>/<?=$user['health']*6?>
-            </div>
-
-            <br>
-
-            <div id="lvl">
-                <div id="title">
-                    <b>Уровни:</b>
-                </div>
-                <div id="blvl">
-                    <span class="blvl">Боевой: <b><?=$user['blvl']?></b> (<?=$user['bexp']?>)</span>
-                </div>
-                <div id="elvl">
-                    <span class="elvl">Экономический: <b><?=$user['elvl']?></b> (<?=$user['eexp']?>)</span>
-                </div>
-                <div id="plvl">
-                    <span class="plvl">Производственный: <b><?=$user['plvl']?></b> (<?=$user['pexp']?>)</span>
-                </div>
-
-                <hr>
-
-                <div id="raion">
-                    <div id="street">
-                        Район: [M] DownTown
-                    </div>
-                    <div id="status">
-                        Статус: <?=$user['status']?>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div id="params">
-                    <div id="str">
-                        Сила: <?=$user['strength']?>
-                    </div>
-                    <div id="agl">
-                        Меткость: <?=$user['accuracy']?>
-                    </div>
-                    <div id="life">
-                        Здоровье: <?=$user['health']?>
-                    </div>
-                    <div id="end">
-                        Выносливость: <?=$user['endurance']?>
-                    </div>
-                </div>
-                <br>
-                <div id="skill">
-                    <table border="1">
+            <p class="liveHp">HP [<b class="current"><?=$user['health']*6?></b>/<b class="total"><?=$user['health']*6?></b>]</p>
+            <div class="agrid12">
+                <div class="ag12Item6">
+                    <table class="tb1">
                         <tr>
-                            <td>
-                                Пистолеты:
-                            </td>
-                            <td>
-                                <?=$user['']?>
-                            </td>
+                            <th colSpan="2">Уровни:</th>
+                        </tr>
+                        <tr>
+                            <td>Боевой </td>
+                            <td><b>4</b> (11012) <small>+7738</small> </td>
+                        </tr><tr>
+                            <td>Производственный</td>
+                            <td><b>6</b> (124)  <small>+34</small></td>
+                        </tr><tr>
+                            <td>Экономический</td>
+                            <td><b>3</b> (60)  <small>+4</small></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ag12Item6">
+                    <table class="tb1">
+                        <tr>
+                            <th colSpan=2><a href="/char/parameters/" class="bold">Параметры</a>:</th>
+                        </tr>
+                        <tr>
+                            <td width="70%">Меткость</td>
+                            <td><?=$user['accuracy']?></td>
+                        </tr>
+                        <tr>
+                            <td>Здоровье</td>
+                            <td><?=$user['health']?></td>
+                        </tr>
+                        <tr>
+                            <td>Сила</td>
+                            <td><?=$user['strength']?></td>
+                        </tr>
+                        <tr>
+                            <td>Выносливость</td>
+                            <td><?=$user['endurance']?></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clear"> </div>
+                <div class="ag12Item6">
+                    <table class="tb1">
+                        <tr>
+                            <th colSpan=2>Умения:</th>
+                        </tr>
+                        <tr>
+                            <td width="55%">Пистолеты</td>
+                            <td><b>3</b> (28) <small>+28</small></td>
+                        </tr><tr>
+                            <td>Автоматы</td>
+                            <td><b>1</b> (6) <small>+2</small></td>
+                        </tr><tr>
+                            <td>Ружья</td>
+                            <td><b>6</b> (228) <small>+55</small></td>
+                        </tr><tr>
+                            <td>Винтовки</td>
+                            <td><b>0</b> (0) <small>+1</small></td>
+                        </tr><tr>
+                            <td>Пулеметы</td>
+                            <td><b>0</b> (0) <small>+1</small></td>
+                        </tr><tr>
+                            <td>Гранаты</td>
+                            <td><b>4</b> (101) <small>+6</small></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ag12Item6">
+                    <table class="tb2">
+                        <tr>
+                            <th colspan="2"><a href="/inventory/" class="bold">Предметы</a>:</th>
+                        </tr>
+                        <tr>
+                            <td>Очки</td>
+                            <td><a href="/item/21/">Солнечные очки</a></td>
+                        </tr>
+                        <tr>
+                            <td>Правая рука</td>
+                            <td><a href="/item/16/">Обрез</a></td>
+                        </tr>
+                        <tr>
+                            <td>Штаны</td>
+                            <td><a href="/item/25/">Брюки «Legion»</a></td>
+                        </tr>
+                        <tr>
+                            <td>Обувь</td>
+                            <td><a href="/item/26/">Пустынные берцы</a></td>
+                        </tr>
+                        <tr>
+                            <td>Автозаполнение</td>
+                            <td><a href="/item/54/">Ящик гранат FG-1</a></td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-
-
-    <div class="col-md-4">
-        <div class="card my-4">
-            <h5 class="card-header">Меню</h5>
-            <div class="card-body">
-                <div class="list-unstyled mb-0">
-                    <ul>
-                        <li><a href="/inventory">Инвентарь</a></li>
-                        <li><a href="/shop">Магазин</a></li>
-                        <li><a href="/mail">Почта</a></li>
-                        <li><a href="/user/search">Найти персонажа</a></li>
-                        <li><a href="/user/sendmoney">Перевод денег</a></li>
-                        <li><a href="/log/transfer?id=<?=$_COOKIE['id']?>">Протокол переводов</a></li>
-                        <li><a href="/log/battle?id=<?=$_COOKIE['id']?>">Протокол боев</a></li>
-                        <li><a href="/user/setting">Настройки<a/></li>
-                        <li><a href="/user/logout"><font color="darkred">Выход</font><a/></li>
-                    </ul>
+        <div class="agItem ag2">
+            <div class="sideMenu">
+                <div class="head">
+                    <a href="/forum/section?id=1">Новости</a></div>
+                <div class="body">
+                    <?php foreach ($data2 as $news): ;?>
+                        <a class="nodec" href="/forum/message?fid=1&amp;tid=<?=$news['id']?>"> - <span><?=$news['title']?></span></a>
+                    <?php endforeach;?>
                 </div>
             </div>
-        </div>
-
-        <div class="card my-4">
-            <h5 class="card-header">Новости</h5>
-            <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        <?php foreach ($data2 as $news): ;?>
-                        <li>
-                            <a href="/forum/message?fid=1&amp;tid=<?=$news['id']?>"><?=$news['title']?></a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+            <div class="frame error">
+                Последний раз вы работали на <a href="/map/object-1/">объекте</a>.
             </div>
-        </div>
 
+            <div class="sideMenu">
+                <div class="head">Друзья онлайн</div>
+                <div class="body">
+                    <a href="/char-info/1319/">Rafus</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
+
+    <div class="clear">&nbsp;</div>
+</div>
 <?php endforeach; ?>

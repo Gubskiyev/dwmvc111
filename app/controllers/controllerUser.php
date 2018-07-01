@@ -69,6 +69,7 @@ class ControllerUser extends Controller {
                 setcookie("login", $login, time() + 36000, "/");
                 setcookie("id", $data['id'], time() + 36000, "/");
                 header('Location: /user/');
+                $this->model->setUserOnline($login);
             } else {
                 print "Вы ввели неправильный логин/пароль<br>";
                 $this->view->render('Авторизация','user/login.php','template.php');
@@ -98,6 +99,7 @@ class ControllerUser extends Controller {
 
     public function actionSendmoney() {
         if(isset($_POST['sendmoney'])) {
+
             $receiver = $_POST['receiver'];
             $money = $_POST['money'];
             $text = $_POST['text'];
@@ -107,36 +109,49 @@ class ControllerUser extends Controller {
             if($text == NULL) $text = "Без примечания";
 
             if($money <= 0) {
-                $data = 'Сумма не может быть меньше 1$';
-                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                $data[] = "<div class='frame error'>Сумма не может быть меньше 1$</div>";
+                $this->view->render('Перевод средств', $data);
                 exit;
             }elseif($this->model->getUser($receiver) == NULL) {
-                $data = 'Игрок не найден';
-                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                $data[] = "<div class='frame error'>Игрок не найден</div>";
+                $this->view->render('Перевод средств', $data);
                 exit;
             }elseif(strlen($text) > 100) {
-                $data = 'Комментарий слишком длинный';
-                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                $data[] = "<div class='frame error'>Комментарий слишком длинный</div>";
+                $this->view->render('Перевод средств', $data);
                 exit;
-            }elseif($moneySender[0]['money'] < $money){
-                $data = 'У меня нет столько денег';
-                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+            }elseif($moneySender[0]['money'] < $money) {
+                $data[] = "<div class='frame error'>У меня нет столько денег</div>";
+                $this->view->render('Перевод средств', $data);
+                exit;
+            }elseif($sender === $receiver) {
+                $data[] = "<div class='frame error'>Самому себе? Зачем?</div>";
+                $this->view->render('Перевод средств', $data);
                 exit;
             }else{
                 $date = date('d/m, H:i:s');
                 $this->model->userSendMoney($sender,$receiver,$money,$text,$date);
-                $data = 'Сумма в размере '.$money.' отправлена персонажу '.$receiver.'.';
-                $this->view->render('Перевод средств', 'user/sendmoneyStatus.php', 'template.php', $data);
+                $data[] = "<div class='frame success'>Сумма в размере $money отправлена персонажу $receiver.</div>";
+                $this->view->render('Перевод средств', $data);
                 exit;
             }
         }
-        $this->view->render('Перевод средств', 'user/sendmoney.php', 'template.php');
+
+        $this->view->render('Перевод средств');
+    }
+
+    public function actionOnline() {
+        $data[] = $this->model->getUserOnline();
+        $this->view->render('Сейчас онлайн игроков', $data);
     }
 
     public function actionLogout() {
+        $login = $_COOKIE['login'];
+        $this->model->setUserOffline($login);
         foreach($_COOKIE as $k => $v)
         setcookie($k, '' , time()-999, "/");
-        header('Location: /');
+        header('Location: /user/login/');
+
     }
 
     public function actionCookie() {

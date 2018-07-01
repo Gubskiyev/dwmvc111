@@ -21,13 +21,16 @@ class Router {
 
         if(file_exists('app/controllers/'.$controllerFile)) {
             include 'app/controllers/'.$controllerFile;
-        } else self::page404();
+        } else static::page404();
 
         if(file_exists('app/models/'.$modelFile)) {
             include 'app/models/'.$modelFile;
         }
 
         $controllerName = 'Controller'.ucfirst($controllerName);
+        if($controllerName == 'ControllerIndex') {
+            include 'app/views/index.php';die;
+        }
         $actionName = 'action'.ucfirst($actionName);
 
         $controllerObject = new $controllerName;

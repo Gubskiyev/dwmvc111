@@ -1,5 +1,41 @@
+<div class="mainContents">
+    <div class="agridC">
+        <div class="agItem ag1">
+            <div class="pageTitle"><?=$data2[0]['title']?></div>
 
-<div class="navbar">
+            <table class="tb1 threadList">
+                <tr>
+                    <th>Тема</th>
+                    <th>Автор</th>
+                    <th>Время</th>
+                    <th>#</th>
+                    <th>Последнее сообщение</th>
+                </tr>
+                <?php foreach($data['section'] as $section): ;?>
+                <tr>
+                    <td><a href="/forum/message?fid=<?=$section['fid']?>&amp;tid=<?=$section['id']?>"><?=htmlentities($section['title'])?></a></td>
+                    <td><a href="/user/info?id=<?=$section['user_id']?>"><?=$section['user']?></td>
+                    <td><?=$section['date']?></td>
+                    <td><?=$data['count'][$section['id']]?></td>
+                    <td><?=$data['lastMessage'][$section['id']]['date']?>, от <a href="/user/info?id=<?=$data['lastMessage'][$section['id']]['user_id']?>"><?=$data['lastMessage'][$section['id']]['user']?></a></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+            <div class="centerGrid">
+                <div class="gridItem3">
+                    <a href="/forum/newThread?fid=<?=$section['fid']?>">Новая тема</a>
+                </div>
+            </div>
+         </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+</div>
+
+
+
+
+
+<!--<div class="navbar">
     <a href="/forum/">Форум</a> -> <?=$data2[0]['title']?>
 </div>
 
@@ -36,3 +72,4 @@
 <div>
     <a class="btn btn-success" href="/forum/newThread?fid=<?=$section['fid']?>">Новая тема</a>
 </div>
+-->

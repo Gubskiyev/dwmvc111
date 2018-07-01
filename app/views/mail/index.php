@@ -1,3 +1,59 @@
+<div class="mainContents">
+    <div class="agridLC">
+        <div class="agItem ag0">
+            <div class="sideMenu">
+                <div class="head">Письма</div>
+                <div class="body">
+                    <a href="/mail/" class="current">Входящие</a>
+                    <a href="/mail/outbox/" >Исходящие</a>
+                    <div>&nbsp;</div>
+                    <a href="/mail/new/" >Написать письмо</a>
+                </div>
+            </div>
+        </div>
+        <div class="agItem ag1">
+            <div class="pageTitle">Входящие</div>
+            <table class="tb1 mailList">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Тема</th>
+                    <th>Отправитель</th>
+                    <th>Время</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <?php foreach($data as $mail): ;?>
+                <tr>
+                    <td>
+                        <div class="mailReadIco">&nbsp;</div>
+                    </td>
+                    <td><a href="/mail/read?type=1&amp;id_mail=<?=$mail['id_mail']?>"><?=$mail['title']?></a></td>
+                    <td><a href="/user/info?id="><?=$mail['sender']?></a></td>
+                    <td><?=$mail['date']?></td>
+                    <td><a href="?delete=8254&token=a4d819ae0771c4d9f677ff30873fa234" class="confirm" rel="Удалить?">[x]</a></td>
+                </tr>
+                <?php endforeach ;?>
+            </table>
+            <div class="floatRight"><a href="?deleteAllRead&token=a4d819ae0771c4d9f677ff30873fa234" class="confirm" rel="Удалить все прочитанные сообщения?">Удалить прочитанное</a></div>
+            <p class="pages">
+                Страницы:
+                <a href="/mail/in/page1/" class="current">1</a>
+                <a href="/mail/in/page2/" >2</a>
+                <a href="/mail/in/page3/" >3</a>
+                <a href="/mail/in/page4/" >4</a>
+            </p>
+
+
+
+        </div>
+    </div>		<div class="clear">&nbsp;</div>
+</div>
+
+
+
+
+
+
+<!--
 </div>
 <div class="card my-4">
     <h5 class="card-header">Входящие сообщения</h5>
@@ -73,3 +129,4 @@
 </div>
 </div>
 
+-->

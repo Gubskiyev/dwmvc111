@@ -8,7 +8,7 @@ class ControllerMap extends Controller {
 
     public function actionView() {
         $data[] = $this->model->getAllSectors();
-        $data[] = $this->model->getRealtyFromSector(44);
+        $data[] = $this->model->getRealtyFromSector(25);
 
         $this->view->render('Карта', $data);
     }

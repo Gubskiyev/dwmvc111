@@ -8,7 +8,7 @@ class ModelMap extends Model {
     }
 
     public function getRealtyFromSector($sector) {
-        $data = "SELECT * FROM `realty` WHERE `place` = '$sector'";
+        $data = "SELECT * FROM `realty` WHERE `sector` = '$sector'";
         $data = $this->select($data);
         return $data;
     }

@@ -2,7 +2,7 @@
 class ControllerIndex extends Controller {
 
     public function actionView() {
-        header('Location: /user/login');
+        $this->view->render('Destroyed World :: Онлайн Игра','views/index.php');
     }
 
 }

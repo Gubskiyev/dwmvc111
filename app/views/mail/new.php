@@ -1,37 +1,30 @@
-<div class="mail">
-    <form action="postMail" method="POST">
-        <table border="1" width="40%" align="center">
-            <tr>
-                <td>
-                    Кому:
-                </td>
-                <td>
-                    <input type="text" name="receiver" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Тема:
-                </td>
-                <td>
-                    <input type="text" name="title">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    Сообщение:
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea rows="10" cols="103" name="text"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" name="submit" value="Отправить">
-                </td>
-            </tr>
-        </table>
-    </form>
+<div class="mainContents">
+    <div class="centerGrid">
+        <div class="centerGrid">
+            <div class="gridItem3">
+                <div class="frameTitle">Новое письмо</div>
+                <div class="frame">
+                    <?=$data?>
+                    <form method="post" action="/mail/postMail">
+                        <p>
+                            Кому:
+                            <input type="text" name="receiver" required value="">
+                        </p>
+                        <p>
+                            Тема:
+                            <input type="text" name="title"  value="">
+                        </p>
+                        <p>
+                            Сообщение:<br>
+                            <textarea name="text" required class="full"></textarea>
+                        </p>
+                        <p class="rightText">
+                            <input type="submit" name="submit" class="stdBtn" value="Отправить">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="clear">&nbsp;</div>

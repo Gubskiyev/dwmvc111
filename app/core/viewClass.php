@@ -7,6 +7,8 @@ class View {
     public function render($title, $var = []) {
 
         if(!empty($var[0])) $data = $var[0];
+        else $data = null;
+
         if(!empty($var[1])) $data2 = $var[1];
         else $data2 = null;
         if(!empty($var[2])) $data3 = $var[2];
@@ -27,6 +29,7 @@ class View {
         $content = 'app/views/'.$path.'/'.$view.'.php';
 
         include 'app/views/'.$this->template.'.php';
+
     }
 
     public function render2 ($title, $content, $template, $data = null, $data2 = null) {
